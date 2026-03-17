@@ -1,0 +1,9 @@
+---
+- name: Verificar versão do SO
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Exibir distribuição e versão
+      debug:
+        msg: "Host: {{ inventory_hostname }} | SO: {{ ansible_distribution }} {{ ansible_distribution_version }}"
