@@ -1,5 +1,4 @@
 - hosts: all
-  become: yes
   tasks:
     - name: Garantir que sngrep está instalado
       ansible.builtin.apt:
