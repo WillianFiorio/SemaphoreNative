@@ -4,3 +4,8 @@
       ansible.builtin.apt:
         name: sngrep
         state: present
+
+    - name: Garantir que nmon está instalado
+      ansible.builtin.apt:
+        name: nmon
+        state: present
