@@ -18,7 +18,7 @@
 
     - name: Garantir que o ncdu está instalado
       ansible.builtin.apt:
-        name: ndcu
+        name: ncdu
         state: present
 
     - name: Garantir que o tcpdumo está instalado
