@@ -10,3 +10,18 @@
       ansible.builtin.apt:
         name: nmon
         state: present
+
+    - name: Garantir que o htop está instalado
+      ansible.builtin.apt:
+        name: htop
+        state: present
+
+    - name: Garantir que o ncdu está instalado
+      ansible.builtin.apt:
+        name: ndcu
+        state: present
+
+    - name: Garantir que o tcpdumo está instalado
+      ansible.builtin.apt:
+        name: tcpdump
+        state: present
