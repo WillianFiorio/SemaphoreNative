@@ -25,3 +25,16 @@
       ansible.builtin.apt:
         name: tcpdump
         state: present
+
+    - name: Coletar serviços
+      ansible.builtin.service_facts:
+
+    - name: Ativar NTP se timesyncd não estiver ativo
+      command: timedatectl set-ntp true
+      when: "'systemd-timesyncd.service' not in ansible_facts.services or ansible_facts.services['systemd-timesyncd.service'].state != 'running'"
+
+    - name: Garantir que timesyncd está ativo
+      ansible.builtin.service:
+        name: systemd-timesyncd
+        state: started
+        enabled: yes
