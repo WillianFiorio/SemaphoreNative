@@ -38,3 +38,17 @@
         name: systemd-timesyncd
         state: started
         enabled: yes
+        
+    - name: Detectar virtualização
+      command: systemd-detect-virt
+      register: virt_type
+      changed_when: false
+
+    - name: Instalar open-vm-tools se for VMware
+      ansible.builtin.apt:
+        name: open-vm-tools
+        state: present
+        update_cache: yes
+      when: virt_type.stdout == "vmware"
+
+        
