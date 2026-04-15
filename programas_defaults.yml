@@ -21,7 +21,7 @@
         name: ncdu
         state: present
 
-    - name: Garantir que o tcpdumo está instalado
+    - name: Garantir que o tcpdump está instalado
       ansible.builtin.apt:
         name: tcpdump
         state: present
@@ -39,16 +39,34 @@
         state: started
         enabled: yes
         
-    - name: Detectar virtualização
+    - name: Detectar o virtualizador
       command: systemd-detect-virt
       register: virt_type
       changed_when: false
-
+    
     - name: Instalar open-vm-tools se for VMware
       ansible.builtin.apt:
         name: open-vm-tools
         state: present
         update_cache: yes
       when: virt_type.stdout == "vmware"
-
-        
+    
+    - name: Habilitar e iniciar open-vm-tools (VMware)
+      systemd:
+        name: open-vm-tools
+        enabled: yes
+        state: started
+      when: virt_type.stdout == "vmware"
+    
+    - name: Instalar qemu-guest-agent se for KVM
+      ansible.builtin.apt:
+        name: qemu-guest-agent
+        state: present
+      when: virt_type.stdout in ["kvm", "qemu"]
+    
+    - name: Habilitar e iniciar qemu-guest-agent (KVM)
+      systemd:
+        name: qemu-guest-agent
+        enabled: yes
+        state: started
+      when: virt_type.stdout in ["kvm", "qemu"]  
