@@ -1,0 +1,6 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Executar script remoto
+      shell: /tmp/script_teste.sh
