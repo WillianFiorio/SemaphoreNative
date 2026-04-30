@@ -1,0 +1,6 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Executar BKP NATIVE
+      shell: /home/suporte/MAURICIO/MAURICIO_upload_backupConfig_bucket.sh
